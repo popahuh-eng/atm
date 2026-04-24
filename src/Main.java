@@ -17,7 +17,10 @@ public class Main {
     private static Scanner scanner;
 
     public static void main(String[] args) {
-        scanner = new Scanner(System.in);
+        // Set console to UTF-8 to support Kazakh/Russian characters
+        System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
+        
+        scanner = new Scanner(System.in, java.nio.charset.StandardCharsets.UTF_8);
         
         // Language Selection
         System.out.println(ConsoleColors.CYAN_BOLD + "Select Language / Выберите язык / Тілді таңдаңыз:" + ConsoleColors.RESET);
