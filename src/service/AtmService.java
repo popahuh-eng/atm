@@ -32,7 +32,7 @@ public class AtmService {
         if (userDatabase.containsKey(cardNumber)) {
             throw new IllegalArgumentException("err_user_exists");
         }
-        User newUser = new User(cardNumber, pin);
+        User newUser = new User(cardNumber, util.SecurityUtils.hashPin(pin));
         userDatabase.put(cardNumber, newUser);
     }
 
@@ -45,7 +45,7 @@ public class AtmService {
             throw new AuthException("err_blocked");
         }
 
-        if (user.getPin().equals(pin)) {
+        if (user.getPin().equals(util.SecurityUtils.hashPin(pin))) {
             user.resetFailedAttempts();
             currentUser = user;
             return true;

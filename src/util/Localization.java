@@ -66,6 +66,8 @@ public class Localization {
         en.put("err_not_auth", "Not authenticated.");
         en.put("err_daily_limit", "Daily withdrawal limit (300,000) exceeded.");
         en.put("msg_commission", "A commission of %.2f was applied.");
+        en.put("err_invalid_card_format", "Card number must contain exactly 16 digits.");
+        en.put("err_invalid_pin_format", "PIN code must contain exactly 4 digits.");
         
         // RU
         Map<String, String> ru = new HashMap<>();
@@ -123,6 +125,8 @@ public class Localization {
         ru.put("err_not_auth", "Вы не авторизованы.");
         ru.put("err_daily_limit", "Превышен суточный лимит снятия (300 000).");
         ru.put("msg_commission", "Удержана комиссия в размере %.2f.");
+        ru.put("err_invalid_card_format", "Номер карты должен состоять ровно из 16 цифр.");
+        ru.put("err_invalid_pin_format", "PIN-код должен состоять ровно из 4 цифр.");
 
         // KZ
         Map<String, String> kz = new HashMap<>();
@@ -180,6 +184,8 @@ public class Localization {
         kz.put("err_not_auth", "Сіз авторизациядан өтпедіңіз.");
         kz.put("err_daily_limit", "Қолма-қол ақша алудың тәуліктік лимитінен (300 000) асып кетті.");
         kz.put("msg_commission", "%.2f мөлшерінде комиссия ұсталды.");
+        kz.put("err_invalid_card_format", "Карта нөмірі нақты 16 цифрдан тұруы керек.");
+        kz.put("err_invalid_pin_format", "PIN-код нақты 4 цифрдан тұруы керек.");
 
         dictionary.put(Language.EN, en);
         dictionary.put(Language.RU, ru);

@@ -168,6 +168,15 @@ public class Main {
         System.out.print(Localization.get("enter_pin"));
         String pin = scanner.nextLine();
 
+        if (!cardNumber.matches("\\d{16}")) {
+            System.out.println(ConsoleColors.RED + Localization.get("input_err") + Localization.get("err_invalid_card_format") + ConsoleColors.RESET);
+            return;
+        }
+        if (!pin.matches("\\d{4}")) {
+            System.out.println(ConsoleColors.RED + Localization.get("input_err") + Localization.get("err_invalid_pin_format") + ConsoleColors.RESET);
+            return;
+        }
+
         if (atmService.login(cardNumber, pin)) {
             System.out.println(ConsoleColors.GREEN_BOLD + Localization.get("login_success") + ConsoleColors.RESET);
             saveData();
@@ -179,6 +188,15 @@ public class Main {
         String cardNumber = scanner.nextLine();
         System.out.print(Localization.get("enter_new_pin"));
         String pin = scanner.nextLine();
+
+        if (!cardNumber.matches("\\d{16}")) {
+            System.out.println(ConsoleColors.RED + Localization.get("input_err") + Localization.get("err_invalid_card_format") + ConsoleColors.RESET);
+            return;
+        }
+        if (!pin.matches("\\d{4}")) {
+            System.out.println(ConsoleColors.RED + Localization.get("input_err") + Localization.get("err_invalid_pin_format") + ConsoleColors.RESET);
+            return;
+        }
 
         atmService.registerUser(cardNumber, pin);
         System.out.println(ConsoleColors.GREEN_BOLD + Localization.get("register_success") + ConsoleColors.RESET);
