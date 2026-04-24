@@ -64,6 +64,8 @@ public class Localization {
         en.put("err_transfer_self", "Cannot transfer to yourself.");
         en.put("err_target_not_found", "Target card not found.");
         en.put("err_not_auth", "Not authenticated.");
+        en.put("err_daily_limit", "Daily withdrawal limit (300,000) exceeded.");
+        en.put("msg_commission", "A commission of %.2f was applied.");
         
         // RU
         Map<String, String> ru = new HashMap<>();
@@ -119,6 +121,8 @@ public class Localization {
         ru.put("err_transfer_self", "Нельзя перевести средства самому себе.");
         ru.put("err_target_not_found", "Карта получателя не найдена.");
         ru.put("err_not_auth", "Вы не авторизованы.");
+        ru.put("err_daily_limit", "Превышен суточный лимит снятия (300 000).");
+        ru.put("msg_commission", "Удержана комиссия в размере %.2f.");
 
         // KZ
         Map<String, String> kz = new HashMap<>();
@@ -174,6 +178,8 @@ public class Localization {
         kz.put("err_transfer_self", "Өзіңізге қаражат аудара алмайсыз.");
         kz.put("err_target_not_found", "Алушының картасы табылмады.");
         kz.put("err_not_auth", "Сіз авторизациядан өтпедіңіз.");
+        kz.put("err_daily_limit", "Қолма-қол ақша алудың тәуліктік лимитінен (300 000) асып кетті.");
+        kz.put("msg_commission", "%.2f мөлшерінде комиссия ұсталды.");
 
         dictionary.put(Language.EN, en);
         dictionary.put(Language.RU, ru);

@@ -117,8 +117,11 @@ public class Main {
                 case "3":
                     System.out.print(Localization.get("enter_withdraw"));
                     double withAmount = Double.parseDouble(scanner.nextLine());
-                    atmService.withdraw(withAmount);
+                    double commission = atmService.withdraw(withAmount);
                     System.out.println(ConsoleColors.GREEN + Localization.get("withdraw_success") + ConsoleColors.RESET);
+                    if (commission > 0) {
+                        System.out.println(ConsoleColors.YELLOW + String.format(Localization.get("msg_commission"), commission) + ConsoleColors.RESET);
+                    }
                     saveData();
                     break;
                 case "4":
