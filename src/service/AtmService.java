@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.UUID;
 
 public class AtmService {
-    private static final double DAILY_WITHDRAWAL_LIMIT = 300000.0;
     private static final double COMMISSION_THRESHOLD = 300000.0;
     private static final double COMMISSION_RATE = 0.01;
 
@@ -98,17 +97,6 @@ public class AtmService {
         }
         Account account = currentUser.getAccount();
         
-        // Calculate daily withdrawn amount
-        double dailyWithdrawn = account.getTransactions().stream()
-            .filter(t -> t.getType() == TransactionType.WITHDRAWAL)
-            .filter(t -> t.getDate().toLocalDate().equals(LocalDate.now()))
-            .mapToDouble(Transaction::getAmount)
-            .sum();
-
-        if (dailyWithdrawn + amount > DAILY_WITHDRAWAL_LIMIT) {
-            throw new IllegalArgumentException("err_daily_limit");
-        }
-
         double commission = 0;
         if (amount > COMMISSION_THRESHOLD) {
             commission = amount * COMMISSION_RATE;
