@@ -26,7 +26,7 @@ public class AtmService {
 
     public void registerUser(String cardNumber, String pin) {
         if (userDatabase.containsKey(cardNumber)) {
-            throw new IllegalArgumentException("User with this card number already exists.");
+            throw new IllegalArgumentException("err_user_exists");
         }
         User newUser = new User(cardNumber, pin);
         userDatabase.put(cardNumber, newUser);
@@ -35,10 +35,10 @@ public class AtmService {
     public boolean login(String cardNumber, String pin) {
         User user = userDatabase.get(cardNumber);
         if (user == null) {
-            throw new AuthException("Card not found.");
+            throw new AuthException("err_card_not_found");
         }
         if (user.isBlocked()) {
-            throw new AuthException("Account is blocked due to too many failed attempts.");
+            throw new AuthException("err_blocked");
         }
 
         if (user.getPin().equals(pin)) {
@@ -49,9 +49,9 @@ public class AtmService {
             user.incrementFailedAttempts();
             if (user.getFailedLoginAttempts() >= 3) {
                 user.setBlocked(true);
-                throw new AuthException("Wrong PIN. Account has been blocked.");
+                throw new AuthException("err_wrong_pin_blocked");
             }
-            throw new AuthException("Wrong PIN. Attempts left: " + (3 - user.getFailedLoginAttempts()));
+            throw new AuthException(String.format("err_wrong_pin_attempts:%d", (3 - user.getFailedLoginAttempts())));
         }
     }
 
@@ -71,7 +71,7 @@ public class AtmService {
     public void deposit(double amount) {
         checkAuth();
         if (amount <= 0) {
-            throw new IllegalArgumentException("Amount must be positive.");
+            throw new IllegalArgumentException("err_amount_positive");
         }
         Account account = currentUser.getAccount();
         account.setBalance(account.getBalance() + amount);
@@ -89,11 +89,11 @@ public class AtmService {
     public void withdraw(double amount) {
         checkAuth();
         if (amount <= 0) {
-            throw new IllegalArgumentException("Amount must be positive.");
+            throw new IllegalArgumentException("err_amount_positive");
         }
         Account account = currentUser.getAccount();
         if (account.getBalance() < amount) {
-            throw new InsufficientFundsException("Not enough funds on balance.");
+            throw new InsufficientFundsException("err_insufficient_funds");
         }
         
         account.setBalance(account.getBalance() - amount);
@@ -111,20 +111,20 @@ public class AtmService {
     public void transfer(String targetCardNumber, double amount) {
         checkAuth();
         if (amount <= 0) {
-            throw new IllegalArgumentException("Amount must be positive.");
+            throw new IllegalArgumentException("err_amount_positive");
         }
         if (currentUser.getCardNumber().equals(targetCardNumber)) {
-            throw new IllegalArgumentException("Cannot transfer to yourself.");
+            throw new IllegalArgumentException("err_transfer_self");
         }
 
         User targetUser = userDatabase.get(targetCardNumber);
         if (targetUser == null) {
-            throw new IllegalArgumentException("Target card not found.");
+            throw new IllegalArgumentException("err_target_not_found");
         }
 
         Account sourceAccount = currentUser.getAccount();
         if (sourceAccount.getBalance() < amount) {
-            throw new InsufficientFundsException("Not enough funds for transfer.");
+            throw new InsufficientFundsException("err_insufficient_funds");
         }
 
         Account targetAccount = targetUser.getAccount();
@@ -155,7 +155,7 @@ public class AtmService {
 
     private void checkAuth() {
         if (currentUser == null) {
-            throw new AuthException("Not authenticated.");
+            throw new AuthException("err_not_auth");
         }
     }
 }
